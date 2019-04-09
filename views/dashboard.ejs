@@ -6,7 +6,7 @@
   </button>
 
   <div class="collapse navbar-collapse" id="navbarColor01" >
-    <ul class="navbar-nav mr-auto>
+    <ul class="navbar-nav mr-auto">
       <li class="nav-item ">
         <a class="nav-link  ml-5" href="http://www.iium.edu.my/">IIUM </a>
       </li>
@@ -16,16 +16,38 @@
       <li class="nav-item">
         <a class="nav-link" href="https://cas.iium.edu.my:8448/cas/login?service=http%3a%2f%2fimaluum.iium.edu.my%2fhome">iMaluum</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">About</a>
+         <li class="nav-item">
+        <a class="nav-link" href="/dashboard">
+          <i class="fas fa-home"></i>  Home</a>
       </li>
+      <% if(user.role=="admin") {%>
+      <li class="nav-item">
+        <a class="nav-link" href="/settings">
+          <i class="fab fa-whmcs"></i>  Settings</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/profile">
+          <i class="far fa-user"></i>  Profile</a>
+      </li>
+      <% } %>
+
+      <% if(user.role=="user") {%>
+        
+        <li class="nav-item">
+          <a class="nav-link" href="/profile">
+            <i class="far fa-user"></i>  Profile</a>
+        </li>
+        <% } %>
+     
+
+
     </ul>
    
   </div>
-  <div class="navbar-text">Welcome 
-</div>
+  <div class="navbar-text">Welcome <%=user.name%> (<%= user.role %>)</div>
 
 </nav>
+<% include ./partials/messages %>
 
 
       <div class ="mt-4 card card-body"  style="border:1px solid black">
@@ -40,12 +62,22 @@
 
   <div class="container " >
     <div class="row" >
-      <a href="/reserve" class="btn btn-info btn-lg btn-block mt-sm-2 ">Make Reservation</a>
-      <a href="#" class="btn btn-info btn-lg btn-block mt-sm-2 ">View Reservations</a>
+        <% if (user.role=="admin"){ %>
+      <a href="/dashboard/reserve" class="btn btn-info btn-lg btn-block mt-sm-2 ">Make Reservation</a>
+      <a href="/dashboard/reservation" class="btn btn-info btn-lg btn-block mt-sm-2 ">View All Reservations</a>
     </div>
      <div class="row"> 
-      <a href="#" class="btn btn-info btn-lg btn-block mt-sm-2" >Reservation (Admin)</a>
-      <a href="#" class="btn btn-info btn-lg btn-block mt-sm-2"> History</a>
+      <a href="/dashboard/requests" class="btn btn-info btn-lg btn-block mt-sm-2" >View All Requests</a>
+      <a href="/dashboard/history" class="btn btn-info btn-lg btn-block mt-sm-2"> History</a>
+      <% } %>
+      <% if (user.role=="user"){ %>
+        <a href="/dashboard/reserve" class="btn btn-info btn-lg btn-block mt-sm-2 ">Make Reservation</a>
+        <a href="/dashboard/reservation" class="btn btn-info btn-lg btn-block mt-sm-2 ">View My Reservations</a>
+      </div>
+       <div class="row"> 
+        <a href="/dashboard/requests" class="btn btn-info btn-lg btn-block mt-sm-2" >View My Requests</a>
+        
+        <% } %>
     </div>
   </div>
 

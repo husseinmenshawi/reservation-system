@@ -1,0 +1,106 @@
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-success">
+    <a href="/users/logout" class="btn btn-light ">Logout</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarColor01" >
+      <ul class="navbar-nav mr-auto>
+        <li class="nav-item ">
+          <a class="nav-link  ml-5" href="http://www.iium.edu.my/">IIUM </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="https://italeem.iium.edu.my/">iTaleem</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://cas.iium.edu.my:8448/cas/login?service=http%3a%2f%2fimaluum.iium.edu.my%2fhome">iMaluum</a>
+        </li>
+   <li class="nav-item">
+          <a class="nav-link" href="/dashboard">
+            <i class="fas fa-home"></i>  Home</a>
+        </li>
+        <% if(user.role=="admin") {%>
+          <li class="nav-item">
+            <a class="nav-link" href="/settings">
+              <i class="fab fa-whmcs"></i>  Settings</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/profile">
+              <i class="far fa-user"></i>  Profile</a>
+          </li>
+          <% } %>
+    
+          <% if(user.role=="user") {%>
+            
+            <li class="nav-item">
+              <a class="nav-link" href="/profile">
+                <i class="far fa-user"></i>  Profile</a>
+            </li>
+            <% } %>
+      </ul>
+     
+    </div>
+    <div class="navbar-text">Welcome <%=user.name%> (<%= user.role %>)
+  </div>
+  
+  </nav>
+  <div class ="mt-4 card card-body"  style="border:1px solid black">
+      <h1 class="mt-4"  style =" text-align: center"><i class="	fas fa-clipboard-list"></i>  View Reservations History</h1>
+      <p class=" mt-3 lead mb-1" style =" text-align: center">Keep Track Of Previous Reservations In KOE Venues</p>
+      
+  </div>
+  <table class="table table-striped">
+        <thead>
+            <tr>
+              
+                <th>Venue Number</th>
+                <th>Time Of Request </th>
+                <th>Reserved By</th>
+                <th>Reserved On </th>
+                
+                <th>Slot Start</th>
+                <th>Slot End</th>
+                <th>Purpose</th>
+                <th>Status</th>
+                <th>Reject Reason</th>
+            </tr>
+        </thead>
+        <tbody>
+          <% if(history.length == 0){ %>
+            <h2>No previous reservations!</h2>
+            <% } %>
+            <% for(var i=0; i<history.length; i++) {%>
+                <tr>
+                      <td><%= history[i].venueRequested %> </td>
+                      <td><%= history[i].timeOfRequest %> </td>    
+                       <td><%= history[i].requestedBy.name %> </td>  
+                       <td><%= history[i].reserveStartDate %> </td>  
+                       
+                       <td><%= history[i].reserveStartTime %> </td> 
+                       <td><%= history[i].reserveEndTime %> </td> 
+                       <td><%= history[i].purpose %> </td>
+                       <% if ( history[i].requestStatus=="accepted") {%> 
+                       <td><i class="	fas fa-thumbs-up fa-2x"></i> </td>
+                       <%}%>
+                        <% if (history[i].requestStatus=="rejected") {%>
+                        <td><i class="fas fa-thumbs-down fa-2x"></i></td>
+                       <%}%>
+                       <td><%= history[i].reasonOfRejection %> </td> 
+                         
+                </tr>
+            <% } %>
+                
+                   
+               
+        </tbody>
+    </table>
+    <a href="/dashboard" class="btn btn-primary btn-block lead mt-4 mb-4">Return to Dashboard</a>
+           
+
+             
+            
+             
+          
+      
+        

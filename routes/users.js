@@ -5,11 +5,16 @@ const passport = require('passport');
 const bodyParser = require("body-parser");
 // Load User model
 const User = require('../models/User');
+
 const path = require('path');
 
 
 const app = express();
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
 app.use(bodyParser.json());
+
 
 
 router.use(express.static(path.join(__dirname, 'public')));
@@ -21,7 +26,11 @@ router.get('/login', (req, res) => res.render('login'));
 // Register Page
 router.get('/register', (req, res) => res.render('register'));
 
-// Register
+
+
+
+
+//Register
 router.post('/register', (req, res) => {
     const { name, matricNo, email, password, password2 } = req.body;
     let errors = [];
@@ -52,9 +61,9 @@ router.post('/register', (req, res) => {
             password2
         });
     } else {
-        User.find({ matricNo: matricNo, email: email }).then(user => {
+        User.findOne({ matricNo: matricNo }).then(user => {
             if (user) {
-                errors.push({ msg: 'Matric number Or Email already registered' });
+                errors.push({ msg: 'Matric number already registered' });
                 res.render('register', {
                     errors,
                     name,
@@ -92,10 +101,23 @@ router.post('/register', (req, res) => {
     }
 });
 
+
+
+
+             
+                
+
+                
+
+
+
+
+
 // Login
 router.post('/login', (req, res, next) => {
     passport.authenticate('local', {
-        successRedirect: '/dashboard', // to make this work use       ../reserve.html
+        
+        successRedirect: '/dashboard',
         failureRedirect: '/users/login',
         failureFlash: true
     })(req, res, next);

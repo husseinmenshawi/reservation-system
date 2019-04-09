@@ -1,0 +1,129 @@
+
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-success">
+    <a href="/users/logout" class="btn btn-light ">Logout</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarColor01" >
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item ">
+          <a class="nav-link  ml-5" href="http://www.iium.edu.my/">IIUM </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="https://italeem.iium.edu.my/">iTaleem</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://cas.iium.edu.my:8448/cas/login?service=http%3a%2f%2fimaluum.iium.edu.my%2fhome">iMaluum</a>
+        </li>
+   <li class="nav-item">
+          <a class="nav-link" href="/dashboard">
+            <i class="fas fa-home"></i>  Home</a>
+        </li>
+        <% if(user.role=="admin") {%>
+          <li class="nav-item">
+            <a class="nav-link" href="/settings">
+              <i class="fab fa-whmcs"></i>  Settings</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/profile">
+              <i class="far fa-user"></i>  Profile</a>
+          </li>
+          <% } %>
+    
+          <% if(user.role=="user") {%>
+            
+            <li class="nav-item">
+              <a class="nav-link" href="/profile">
+                <i class="far fa-user"></i>  Profile</a>
+            </li>
+            <% } %>
+      </ul>
+     
+    </div>
+    <div class="navbar-text">Welcome <%=user.name%> (<%= user.role %>)
+  </div>
+  
+  </nav>
+  <div class ="mt-4 card card-body"  style="border:1px solid black">
+      <h1 class="mt-4"  style =" text-align: center"><i class="fas fa-search"></i>  Searching for Venue</h1>
+      <p class=" mt-3 lead mb-1" style =" text-align: center">Provide filters for venues </p>
+      <p class="lead mb-1" style =" text-align: center">Note : Click search with only the date to apply no filters </p>
+      
+  </div>
+  <div class="row mt-3">
+      <div class="col-md-6 m-auto">
+        <div class="card card-body">
+          <% include ./partials/messages %>
+          <form id="form" action="/dashboard/reserve/fVenue/avaVenues" method="POST">
+            <div class="form-group mt-2">
+                <label for="searchStartDate">Date</label>
+                <input
+                    type="date"
+                    id="searchStartDate"
+                    name="searchStartDate"
+                    class="form-control"
+                    placeholder="Select Date"
+                    value="searchStartDate"
+                  
+                    
+                />
+            </div>
+          
+              
+          <div class="form-row">
+              <div class="form-group mt-2 col-md-6">
+              
+                  <label for="capacity">Capacity</label>
+                  <select class="custom-select"id="capacity" name="capacity">
+                  <option value=""> Select Capacity</option>
+                  <option value="30"<%= typeof capacity != 'undefined' ? capacity: '' %>
+                  >30</option>
+                  <option value="40"<%= typeof capacity != 'undefined' ? capacity: '' %>
+                  >40</option>
+                  <option value="50"<%= typeof capacity != 'undefined' ? capacity: '' %>
+                  >50</option>
+                </select>
+              
+              
+          </div>
+                  <div class="form-group mt-2 col-md-6">
+                      <label for="projector">Projector </label>
+                      <select class="custom-select"id="projector" name="projector">
+                      <option value="">Projector</option>
+                      <option value="true"<%= typeof projector != 'undefined' ? projector: '' %>
+                      > true </option>
+                      <option value="false"<%= typeof projector != 'undefined' ? projector: '' %>
+                          > false </option>
+                    </select>
+                  </div>
+              </div>
+  
+                  
+  
+                  <div class="form-row">
+                    <div class="form-group mt-2 col-md-6">
+                        <button type="submit" class="btn btn-info btn-block ">Search</button>
+                    </div>
+                      <div class="form-group mt-2 col-md-6">
+                        <a href="/dashboard/reserve" class="btn btn-primary btn-block ">Back to Reservation Page</a>
+                    </div>
+          
+                
+                  </div>
+              
+  
+          </form>
+      
+          
+        </div>
+      </div>
+    </div>
+    <script>
+        var today = new Date().toISOString().split('T')[0];
+    document.getElementsByName("searchStartDate")[0].setAttribute('min', today);
+    </script>
+  
+  
+  

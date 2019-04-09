@@ -1,14 +1,5 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <title>
-        Testing Fyp
-    </title>
 
-</head>
-<body>
+
 <nav class="navbar navbar-expand-lg navbar-dark bg-success">
   <a href="/users/logout" class="btn btn-light ">Logout</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
@@ -26,116 +17,246 @@
       <li class="nav-item">
         <a class="nav-link" href="https://cas.iium.edu.my:8448/cas/login?service=http%3a%2f%2fimaluum.iium.edu.my%2fhome">iMaluum</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">About</a>
+ <li class="nav-item">
+        <a class="nav-link" href="/dashboard">
+          <i class="fas fa-home"></i>  Home</a>
       </li>
+      <% if(user.role=="admin") {%>
+        <li class="nav-item">
+          <a class="nav-link" href="/settings">
+            <i class="fab fa-whmcs"></i>  Settings</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/profile">
+            <i class="far fa-user"></i>  Profile</a>
+        </li>
+        <% } %>
+  
+        <% if(user.role=="user") {%>
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/profile">
+              <i class="far fa-user"></i>  Profile</a>
+          </li>
+          <% } %>
     </ul>
    
   </div>
-  <div class="navbar-text">Welcome  </div>
+  <div class="navbar-text">Welcome <%=user.name%> (<%= user.role %>)
+</div>
 
 </nav>
-    <div class="container">
-        <div class="form-group">
-		<% include ./partials/messages %>
-            <form id="form">
+<div class ="mt-4 card card-body"  style="border:1px solid black">
+    <h1 class="mt-4"  style =" text-align: center"><i class="fas fa-pencil-alt"></i>  Making Reservations</h1>
+
+    <p class="lead mb-1" style =" text-align: center">Available Time Slots :</p>
+    <p class="lead mb-1" style =" text-align: center">8:30AM - 9:50AM </p>
+    <p class="lead mb-1" style =" text-align: center">10:00AM - 11:20AM </p>
+    <p class="lead mb-1" style =" text-align: center">11:30AM - 12:50PM </p>
+    <p class="lead mb-1" style =" text-align: center">2:00PM - 3:20PM </p>
+    <p class="lead mb-1" style =" text-align: center">3:30PM - 4:50PM </p>
+    <p class="lead mb-1" style =" text-align: center">8:00PM - 10:00PM </p>
+    <p class="lead mb-1" style =" text-align: center">Note: Starting time and Ending time should correspond to the time slots above </p>
+    
+</div>
+<div class="row mt-3">
+    <div class="col-md-6 m-auto">
+      <div class="card card-body">
+        <% include ./partials/messages %>
+        <form id="form" action="/dashboard/reserve" method="POST">
+          <a href ="/dashboard/reserve/fVenue" class="btn btn-success btn-block">View Available Venues</a>
+        
+            <div class="form-group mt-2">
+                <label for="venue">Venue</label>
+                <select class="custom-select" id="roomNo" name="roomNo">
+                <option value=""> Please Select a Venue</option>
+                <option value="e1-1-1"<%= typeof roomNo != 'undefined' ? roomNo : '' %>"
+                >e1-1-1</option>
+                <option value="e1-1-2"<%= typeof roomNo != 'undefined' ? roomNo : '' %>"
+                >e1-1-2</option>
+                <option value="e1-1-3"<%= typeof roomNo != 'undefined' ? roomNo : '' %>"
+                >e1-1-3</option>
+                </select>
+               
+                
+            </div>
+
+            
+        
+        <div class="form-group mt-2">
+            
+                <label for="reserveStartDate">Start date of reservation</label>
+                <input
+                    type="date"
+                    id="reserveStartDate"
+                    name="reserveStartDate"
+                    class="form-control"
+                    placeholder="dd/mm/yyyy"
+                    value="reserveStartDate"<%= typeof reserveStartDate != 'undefined' ? reserveStartDate: '' %>
+                />
+            
+            
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group mt-2 col-md-6">
+            <label for="reserveStartTime">Start time Of Reservation</label>
+            <select class="custom-select" name="reserveStartTime" id="reserveStartTime">
+                <option value="">
+                    Select Start Time
+                  </option>
+            <option
+                type="reserveStartTime"
+                id="reserveStartTime"
+                name="reserveStartTime"
+                class="form-control"
+                
+                
+                value="8:30AM"<%= typeof reserveStartTime != 'undefined' ? reserveStartTime: '' %>
+            >8:30AM</option>
+            <option
+                type="reserveStartTime"
+                id="reserveStartTime"
+                name="reserveStartTime"
+                class="form-control"
+                
+                value="reserveStartTime"<%= typeof reserveStartTime != 'undefined' ? reserveStartTime: '' %>
+            >10:00AM</option>
+            <option
+                type="reserveStartTime"
+                id="reserveStartTime"
+                name="reserveStartTime"
+                class="form-control"
+                
+                value="reserveStartTime"<%= typeof reserveStartTime != 'undefined' ? reserveStartTime: '' %>
+            >11:30AM</option>
+            <option
+                type="reserveStartTime"
+                id="reserveStartTime"
+                name="reserveStartTime"
+                class="form-control"
+                
+                value="reserveStartTime"<%= typeof reserveStartTime != 'undefined' ? reserveStartTime: '' %>
+            >2:00PM</option>
+            <option
+                type="reserveStartTime"
+                id="reserveStartTime"
+                name="reserveStartTime"
+                class="form-control"
+                
+                value="reserveStartTime"<%= typeof reserveStartTime != 'undefined' ? reserveStartTime: '' %>
+            >3:30PM</option>
+            <option
+                type="reserveStartTime"
+                id="reserveStartTime"
+                name="reserveStartTime"
+                class="form-control"
+                
+                value="reserveStartTime"<%= typeof reserveStartTime != 'undefined' ? reserveStartTime: '' %>
+            >5:00PM</option>
+            <option
+                type="reserveStartTime"
+                id="reserveStartTime"
+                name="reserveStartTime"
+                class="form-control"
+                
+                value="reserveStartTime"<%= typeof reserveStartTime != 'undefined' ? reserveStartTime: '' %>
+            >8:00PM</option>
+            </select>
+        </div>
+                <div class="form-group mt-2 col-md-6">
+                    <label for="reserveEndTime">End Time Of Reservation </label>
+                    <select class="custom-select" name="reserveEndTime" id="reserveEndTime">
+                    <option selected="">
+                      Select End Time
+                    </option>
+                    <option
+                        type="reserveEndTime"
+                        id="reserveEndTime"
+                        name="reserveEndTime"
+                        class="form-control"
+                        
+                        value="9:50AM"<%= typeof reserveEndTime != 'undefined' ? reserveEndTime: '' %>
+                    >9:50AM</option>
+                    <option
+                        type="reserveEndTime"
+                        id="reserveEndTime"
+                        name="reserveEndTime"
+                        class="form-control"
+                        
+                        value="reserveEndTime"<%= typeof reserveEndTime != 'undefined' ? reserveEndTime: '' %>
+                    >11:20AM</option>
+                    
+                    <option
+                        type="reserveEndTime"
+                        id="reserveEndTime"
+                        name="reserveEndTime"
+                        class="form-control"
+                        
+                        value="reserveEndTime"<%= typeof reserveEndTime != 'undefined' ? reserveEndTime: '' %>
+                    >12:50PM</option>
+                    <option
+                        type="reserveEndTime"
+                        id="reserveEndTime"
+                        name="reserveEndTime"
+                        class="form-control"
+                        
+                        value="reserveEndTime"<%= typeof reserveEndTime != 'undefined' ? reserveEndTime: '' %>
+                    >3:20PM</option>
+                    <option
+                        type="reserveEndTime"
+                        id="reserveEndTime"
+                        name="reserveEndTime"
+                        class="form-control"
+                        
+                        value="reserveEndTime"<%= typeof reserveEndTime != 'undefined' ? reserveEndTime: '' %>
+                    >6:20PM</option>
+                    <option
+                        type="reserveEndTime"
+                        id="reserveEndTime"
+                        name="reserveEndTime"
+                        class="form-control"
+                        
+                        value="reserveEndTime"<%= typeof reserveEndTime != 'undefined' ? reserveEndTime: '' %>
+                    >10:00PM</option>
+                    </select>
+                </div>
+            </div>
+
                 <div class="form-group mt-2">
-                    <label for="venue">Venue</label>
-                    <input type="text" class="form-control" id="userInput" placeholder="Insert Room number">
-                    <button type="submit" id="clickd" class="btn btn-primary mt-2">Reserve</button>
-					<a href ="/dashboard" class="btn btn-primary mt-2">Back</a>
+                    <label for="purpose">Purpose Of Reservation</label>
+                    <input
+                        type="purpose"
+                        id="purpose"
+                        name="purpose"
+                        class="form-control"
+                        placeholder="Purpose"
+                        value=""<%= typeof purpose != 'undefined' ? purpose: '' %>
+                    />
                 </div>
 
-            </form>
+                <div class="form-row">
+                    <div class="form-group mt-2 col-md-6">
+                        <a href="/dashboard" class="btn btn-primary btn-block ">Back to Dashboard</a>
+                        
+                       
+                        
+                    </div>
+        
+                    <div class="form-group mt-2 col-md-6">
+                        <button type="submit" class="btn btn-info btn-block ">Request venue</button>
+                    </div>
+                </div>
+            
 
-        </div>
+        </form>
+    
+        
+      </div>
     </div>
+  </div>
+  <script>
+      var today = new Date().toISOString().split('T')[0];
+  document.getElementsByName("reserveStartDate")[0].setAttribute('min', today);
+  </script>
 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-    <script>
-                $(document).ready(() => {
-                    const display = $("#display");
-                    const form = $("#form");
-                    const userInput = $("#userInput");
-                    const message = $("#message");
-                    message.hide();
-                    const displayMessage = (flag, msg) => {
-                        // successful
-                        if (flag) {
-                            message.removeClass('alert-danger');
-                            message.addClass('alert-success');
-                            message.html(msg);
-                            message.show();
-                        }
-                        else {
-                            message.removeClass('alert-success');
-                            message.addClass('alert-danger');
-                            message.html(msg);
-                            message.show();
-                        }
-                    }
-
-
-                    const resetTodosInput = () => {
-                        userInput.val('');
-                    }
-
-
-
-
-
-
-                    const button = document.getElementById('clickd');
-                    button.addEventListener('click', function (e) {
-                        e.preventDefault();
-                        console.log("button was clicked again");
-                        const venueNo = userInput.val();
-
-                        fetch(`/${venueNo}`,{
-                            method: 'put',
-                            headers: {
-                                "Content-Type": "application/json; charset=utf-8"
-                            }
-
-                        }).then((response) => {
-                            if (response.ok) {
-                                console.log("Venue was Booked!", userInput.val())
-                                resetTodosInput();
-                                // getVenues();
-                                return response.json();
-                            }
-                            else {
-								resetTodosInput();
-                                console.log('idk what happened');
-								
-                            }
-
-
-                        });
-                    });
-
-
-                    const getVenues = () => {
-                        fetch('/getVenues', {
-                            method: "get"
-                        }).then((response) => {
-                            return response.json();
-                        }).then((data) => {
-                            console.log(data);
-                            return data;
-
-                        });
-                    }
-
-
-
-
-                });
-
-    </script>
-</body>
-
-
-</html>

@@ -25,6 +25,10 @@ const connect = (cb) => { // connect method
     }
 }
 
+// returns OBJECTID object used to 
+const getPrimaryKey = (_id)=>{
+    return ObjectID(_id);
+}
 
 
 const getDB = () => { // to get database
@@ -32,4 +36,4 @@ const getDB = () => { // to get database
 
 }
 
-module.exports = { getDB, connect }; //exposing methods
+module.exports = { getDB, connect, getPrimaryKey }; //exposing methods

@@ -1,6 +1,6 @@
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-success">
-        <a href="/users/logout" class="btn btn-light ">Logout</a>
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <a href="/users/logout" style="color:#fff"><i class="fas fa-sign-out-alt"></i>Logout</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -47,22 +47,20 @@
       
       </nav>
       
-      <div class ="mt-4 card card-body"  style="border:1px solid black">
+      <div class ="card card-body"  style="border:1px solid black">
               <h1 class="mt-4"  style =" text-align: center"><i class="fas fa-user-times"></i>  Rejecting Request</h1>
               <p class=" mt-3 lead mb-1" style =" text-align: center">Provide a reason for the rejectiong of the user's request</p>
               
       </div>
 
-      <div class="row mt-3">
+      <div class="row mt-2">
             <div class="col-md-6 m-auto">
               <div class="card card-body">
+                  <% include ./partials/messages %>
                 
                 
                  
-                  <div class="form-group">
-                    <label for="reason">State Reason</label>
-                    
-                  </div>
+                  
                   
                   <form method="POST" action="/dashboard/requests/details/<%= requested[0]._id %>/reject/<%=requested[0]._id%>">
                     <label for="reasonOfRejection">Reason </label>
@@ -74,29 +72,73 @@
                         placeholder="Inapproriate Purpose etc"
                         value=""<%= typeof reasonOfRejection != 'undefined' ? reasonOfRejection: '' %>
                     /> 
-                  <button  type="submit" onclick="return confirm('Are you sure to reject this request ?');"class="btn btn-primary btn-block lead mt-4">
+                    <label class="mt-2" for="venueNo">Confirm Venue </label>
+                    <input
+                        type="venueNo"
+                        id="venueNo"
+                        name="venueNo"
+                        class="form-control"
+                        readonly="readonly"
+                        value="<%= requested[0].venueRequested%>"<%= typeof venueNo != 'undefined' ? venueNo: '' %>
+                    />
+                    <label class="mt-2" for="dateRes">Confirm Date of Reservation </label>
+                    <input
+                        type="date"
+                        id="dateRes"
+                        name="dateRes"
+                        class="form-control"
+                        readonly="readonly"
+                        value="<%= requested[0].reserveStartDate%>"<%= typeof dateRes != 'undefined' ? dateRes: '' %>
+                    />
+                  <button  type="submit" onclick="return confirm('Are you sure to reject this request ?');"class="btn btn-block lead mt-4">
                     Reject Request
                   </button>
                   </form>
                 
-                <p class="lead mt-2">Back to Requests <a href="/dashboard/requests">Here</a></p>
+                <p class="lead mt-2">Back to Requests <a href="/dashboard/requests" style="color:#2c3e50">Here</a></p>
                 
               </div>
             </div>
           </div>
 
-          <script>
-          
-          // const button2 = document.getElementById('reject');         
-          //              button2.addEventListener('click',function(e){
-          //                  fetch(`/dashboard/requests/details/<%= requested[0]._id %>/reject/<%=requested[0]._id%>`,{
-          //                      method: "post",
-          //                      headers : {
-          //                      "Content-Type" : "application/json; charset=utf-8"
-          //                  },
-                           
-          //                  })  
-          //                  location.href = `/dashboard/requests`
-                       
-          //              });
-          </script>
+          <style>
+              .container-fluid {
+                  width: 100vw;
+                  background-color: #2c3e50;
+                  background-size: 100%;
+                  background-repeat: no-repeat;
+                  background-position: bottom;
+                  height: 100vh;
+                }
+                .btn {
+                  background-color: #fff;
+                  color: #2c3e50;
+                  padding: 5px;
+                  font-size: 1.0rem;
+                  width: 50%;
+                  display: block;
+                  margin: auto;
+                  border-radius: 50px;
+                  transition: all 500ms;
+                  opacity: 1;
+                  border: 1px solid #2c3e50;
+                }
+              
+                .btn:hover {
+                  color: #fff;
+                  background-color: #2c3e50;
+                  border: 1px solid #fff;
+                }
+                h1,h2 {
+            color: #2c3e50;
+            }
+            
+            .card {
+            border-radius: 25px;
+            }
+            p {
+            color: #2c3e50;
+            font-weight: bold;
+            }
+              
+              </style>

@@ -1,7 +1,7 @@
 const MongoClient = require('mongodb').MongoClient;
 const ObjectID = require('mongodb').ObjectID;
 const dbname = "FYP";
-const url = "mongodb://localhost:27017";
+const url = "mongodb://localhost:27017/FYP";
 const mongoOptions = { useNewUrlParser: true };
 
 const state = {

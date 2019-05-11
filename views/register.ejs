@@ -1,71 +1,144 @@
-<div class="row mt-5">
-  <div class="col-md-6 m-auto">
-    <div class="card card-body">
-      <h1 class="text-center mb-3">
-        <i class="fas fa-user-plus"></i> Register
-      </h1>
-      <% include ./partials/messages %>
-      <form action="/users/register" method="POST">
-        <div class="form-group">
-          <label for="name">Name</label>
-          <input
-            type="name"
-            id="name"
-            name="name"
-            class="form-control"
-            placeholder="Enter Name"
-            value="<%= typeof name != 'undefined' ? name : '' %>"
-          />
+
+    <div class="row">
+        <div class="col-md-6 m-auto">
+          <div class="card card-body">
+            <h1 class="text-center mb-3">
+              <i class="fas fa-user-plus"></i> Register
+            </h1>
+            <% include ./partials/messages %>
+            <form action="/users/register" method="POST">
+              <div class="form-group">
+                <label for="name">Name</label>
+                <input
+                  type="name"
+                  id="name"
+                  name="name"
+                  class="form-control"
+                  placeholder="Enter Name"
+                  value="<%= typeof name != 'undefined' ? name : '' %>"
+                />
+              </div>
+              <div class="form-group">
+                <label for="matricNo">Matric No./Staff No.</label>
+                <input
+                  type="matricNo"
+                  id="matricNo"
+                  name="matricNo"
+                  class="form-control"
+                  placeholder="Enter Matric No./Staff No."
+                  value="<%= typeof matricNo != 'undefined' ? matricNo : '' %>"
+                />
+              </div>
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  class="form-control"
+                  placeholder="Enter Email"
+                  value="<%= typeof email != 'undefined' ? email : '' %>"
+                />
+              </div>
+              <div class="form-group">
+                <label for="password">Password</label>
+                <input
+                  type="password"
+                  id="password"
+                  name="password"
+                  class="form-control"
+                  placeholder="Create Password"
+                  value="<%= typeof password != 'undefined' ? password : '' %>"
+                />
+              </div>
+              <div class="form-group">
+                <label for="password2">Confirm Password</label>
+                <input
+                  type="password"
+                  id="password2"
+                  name="password2"
+                  class="form-control"
+                  placeholder="Confirm Password"
+                  value="<%= typeof password2 != 'undefined' ? password2 : '' %>"
+                />
+              </div>
+              <button type="submit" class="btn btn-primary btn-block">
+                Register
+              </button>
+            </form>
+            <p class="lead mt-4">Have An Account? <a href="/users/login">Login</a></p>
+          </div>
         </div>
-        <div class="form-group">
-          <label for="matricNo">Matric Number</label>
-          <input
-            type="matricNo"
-            id="matricNo"
-            name="matricNo"
-            class="form-control"
-            placeholder="Enter Matric No."
-            value="<%= typeof matricNo != 'undefined' ? matricNo : '' %>"
-          />
-        </div>
-        <div class="form-group">
-          <label for="email">Email</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            class="form-control"
-            placeholder="Enter Email"
-            value="<%= typeof email != 'undefined' ? email : '' %>"
-          />
-        </div>
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            class="form-control"
-            placeholder="Create Password"
-            value="<%= typeof password != 'undefined' ? password : '' %>"
-          />
-        </div>
-        <div class="form-group">
-          <label for="password2">Confirm Password</label>
-          <input
-            type="password"
-            id="password2"
-            name="password2"
-            class="form-control"
-            placeholder="Confirm Password"
-            value="<%= typeof password2 != 'undefined' ? password2 : '' %>"
-          />
-        </div>
-        <button type="submit" class="btn btn-primary btn-block">
-          Register
-        </button>
-      </form>
-      <p class="lead mt-4">Have An Account? <a href="/users/login">Login</a></p>
     </div>
-  </div>
-</div>
+      
+
+
+<style>
+  .container-fluid {
+    width: 100vw;
+    /*background-color: #2c3e50;*/
+    background-image: url('http://www.iium.edu.my/imagecache/original/33533/WhatsApp%20Image%202019-02-20%20at%2013.34.14.jpeg');
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  .row {
+    background-color: #2c3e50;
+    height: 100vh;
+    opacity: 0.9;
+    color: white;
+    overflow: hidden;
+  }
+
+  .form-group input {
+    background: transparent;
+    border: 0px solid white;
+    border-radius: 0px;
+    border-bottom: 1px solid #fff;
+    color: white;
+  }
+
+  .form-group input:focus {
+    background: transparent;
+    border: 1px solid white;
+    color: white;
+  }
+
+  .form-group input::placeholder {
+    color: #9bb0c4;;
+
+  }
+
+  .card {
+    background-color: transparent;  
+    border: 0;
+  }
+
+  .btn {
+    background-color: #2c3e50;
+    padding: 10px;
+    font-size: 1.2rem;
+    border: 1px solid #fff;
+    display: block;
+    width: 50%;
+    margin: auto;
+    transition: all 1s;
+  }
+
+  .btn:hover {
+    background-color: #fff;
+    border: 1px solid #2c3e50;
+    color: #2c3e50;
+  }
+
+  p a {
+    color: #fff;
+    text-decoration: underline;
+  }
+
+  p a:hover {
+    color: #fff;
+    text-decoration: none;
+  }
+</style>

@@ -1,12 +1,12 @@
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-success">
-  <a href="/users/logout" class="btn btn-light ">Logout</a>
+<nav class="navbar navbar-expand-lg navbar-dark ">
+    <a href="/users/logout" style="color:#fff"><i class="fas fa-sign-out-alt"></i>Logout</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
   <div class="collapse navbar-collapse" id="navbarColor01" >
-    <ul class="navbar-nav mr-auto>
+    <ul class="navbar-nav mr-auto">
       <li class="nav-item ">
         <a class="nav-link  ml-5" href="http://www.iium.edu.my/">IIUM </a>
       </li>
@@ -46,15 +46,26 @@
 </div>
 
 </nav>
-
-<div class ="mt-4 card card-body"  style="border:1px solid black">
+<div class="container-fluid">
+  <div class="row">
+    
+    <div class ="col-md-6 card card-body"  style="border:1px solid black">
         <h1 class="mt-4"  style =" text-align: center"><i class="fas fa-plus-circle"></i>  Add Venue</h1>
-        <p class=" mt-3 lead mb-1" style =" text-align: center">Select venues that you wish to add to Database</p>
-        
-</div>
-<div class="row mt-3">
-  <div class="col-md-6 m-auto">
-    <div class="card card-body">
+        <p class=" mt-3 lead mb-1" style =" text-align: center"><b>Current No. Of Venues : <%=venues.length%></b></p>
+        <p class=" mt-3 lead mb-1" style =" text-align: center">Select venues that you wish to add to The Database</p>
+        <p class=" mt-3 lead mb-1" style =" text-align: center">Provide details regarding the venues such as the number of the venue,
+           how many students it can hold, the type of the venue as well as the available time slot of the venue.</p>
+        <p class=" mt-3 lead mb-1" style =" text-align: center">The different types of venues are displayed below: </p>
+        <p class="  mt-2 mb-1" style =" text-align: center">  <b>SR</b>: STUDY ROOM</p>
+        <p class="   mb-1" style =" text-align: center"> <b>TR</b>: TUTORIAL ROOM</p>
+        <p class="   mb-1" style =" text-align: center"> <b>LR</b>: LECTURE ROOM</p>
+        <p class="   mb-1" style =" text-align: center">  <b>LR(M)</b>: LECTURE ROOM WITH MUTLIMEDIA FACILITIES</p>
+        <p class="   mb-1" style =" text-align: center">  <b>TB</b>: TABLES AND CHAIRS</p>
+        <p class="   mb-1" style =" text-align: center">  <b>FC</b>: FLIP CHAIRS</p>
+    </div>
+  <div class="col-md-6 card card-body">
+    <div>
+      <div>
       <% include ./partials/messages %>
       <form action="/settings/aVenue" method="post">
 
@@ -66,8 +77,9 @@
             name="roomNo"
             class="form-control"
             placeholder="Enter venue number"
-            value="<%= typeof roomNo != 'undefined' ? roomNo : '' %>"
+            value=""
           >
+          
         </div>
         <div class="form-group">
           <label for="capacity">Capacity</label>
@@ -77,63 +89,123 @@
             name="capacity"
             class="form-control"
             placeholder="Enter capacity"
-            value=""<%= typeof capacity != 'undefined' ? capacity : '' %>"
+            value=""
           >
         </div>
 
         <div class="form-group">
-          <label for="projector">Projector</label>
-          <input
-            type="projector"
-            id="projector"
-            name="projector"
-            class="form-control"
-            placeholder="true/false"
-            value=""<%= typeof projector != 'undefined' ? projector : '' %>"
-          >
-        </div>
-
-       
-        <div class="form-group">
-          <label for="SlotStart">Slot Start</label>
-          <input
-            type="slotStart"
-            id="slotStart"
-            name="slotStart"
-            class="form-control"
-            placeholder="Etc 9:00AM"
-            value=""<%= typeof slotStart != 'undefined' ? slotStart : '' %>"
-          >
+          <label for="venueType">Classroom Type</label>
+          <select class="custom-select" name="venueType" id="venueType">
+          <option value="">Select Classroom Type</option>
+          <option value="SR"<%= typeof venueType != 'undefined' ? venueType : '' %>"
+          >SR</option>
+          <option value="TR"<%= typeof venueType != 'undefined' ? venueType : '' %>"
+          >TR</option>
+          <option value="LR"<%= typeof venueType != 'undefined' ? venueType : '' %>"
+          >LR</option>
+          <option value="LR(M)"<%= typeof venueType != 'undefined' ? venueType : '' %>"
+          >LR(M)</option>
+          <option value="Audi"<%= typeof venueType != 'undefined' ? venueType : '' %>"
+          >Audi</option>
+        </select>
         </div>
 
         <div class="form-group">
-          <label for="SlotEnd">Slot End</label>
-          <input
-            type="slotEnd"
-            id="slotEnd"
-            name="slotEnd"
-            class="form-control"
-            placeholder="Etc 10:20AM"
-            value=""<%= typeof slotEnd != 'undefined' ? slotEnd : '' %>"
-          >
-        </div>
-      
+            <label for="seatingType">Seating Type</label>
+            <select class="custom-select" name="seatingType" id="seatingType">
+            <option value="">Select Seating Type</option>
+            <option value="TB"<%= typeof seatingType != 'undefined' ? seatingType : '' %>"
+            >TB</option>
+            <option value="FC"<%= typeof seatingType != 'undefined' ? seatingType : '' %>"
+            >FC</option>
+            <option value="-"<%= typeof seatingType != 'undefined' ? seatingType : '' %>"
+            >None</option>
+            
+          </select>
+          </div>
+
        
         
 
-		
-       
-        
-   
-        <button type="submit" class="btn btn-info btn-block">
-          Add Venue
-        </button>
-      </form>
-	  <p class="lead mt-2">Remove Venue <a href="/settings/rVenue">Here</a></p>
+              <button type="submit" class="btn btn-info btn-block">
+                Add Venue
+              </button>
+            </form>
+	        <p class="lead mt-2">Remove Venue <a href="/settings/rVenue" style="color:#2c3e50">Here</a></p>
       
+        </div>
+      </div>
     </div>
   </div>
 </div>
+
+<style>
+       .scrollable {
+        height: 300px;
+        overflow-y: scroll;
+      }
+         /* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #fff; 
+  border-radius: 10px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgb(48, 46, 46); 
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
+  .container-fluid {
+      width: 100vw;
+      background-color: #2c3e50;
+      background-size: 100%;
+      background-repeat: no-repeat;
+      background-position: bottom;
+      height: 100vh;
+      overflow-x:hidden;
+      
+    }
+    .btn {
+      background-color: #fff;
+      color: #2c3e50;
+      padding: 5px;
+      font-size: 1.0rem;
+      width: 50%;
+      display: block;
+      margin: auto;
+      border-radius: 50px;
+      transition: all 500ms;
+      opacity: 1;
+      border: 1px solid #2c3e50;
+    }
+  
+    .btn:hover {
+      color: #fff;
+      background-color: #2c3e50;
+      border: 1px solid #fff;
+    }
+    h1,h2 {
+color: #2c3e50;
+}
+
+.card {
+border-radius: 25px;
+}
+p {
+color: #2c3e50;
+font-weight: bold;
+}
+  </style>
 
         
 

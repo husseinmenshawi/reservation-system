@@ -1,6 +1,6 @@
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-success">
-  <a href="/users/logout" class="btn btn-light ">Logout</a>
+<nav class="navbar navbar-expand-lg navbar-dark ">
+    <a href="/users/logout" style="color:#fff"><i class="fas fa-sign-out-alt"></i>Logout</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -37,61 +37,90 @@
 
 </nav>
 
-<div class ="mt-4 card card-body"  style="border:1px solid black">
+<div class ="card card-body"  style="border:1px solid black">
         <h1 class="mt-4"  style =" text-align: center"><i class="fab fa-whmcs"></i>  Settings</h1>
         <p class=" mt-3 lead mb-1" style =" text-align: center">Make changes to your application!</p>
         <p class="lead mb-3" style =" text-align: center">Add/Remove privileges to users as well as Add/Remove venues for reservations. </p>
 </div>		 
 
 
-
-<div class="form-row">
-    <div class="form-group mt-2 col-md-6">
+<% include ./partials/messages %>
+<div class="container">
+    <div class="row mt-2">
       
         
         <a href="/settings/aAdmin" class="btn btn-secondary btn-lg btn-block mt-sm-2 ">Add Administrator</a>
-        
+        <a href="/settings/aVenue" class="btn btn-secondary btn-lg btn-block mt-sm-2" >Add Venue</a> 
         
     </div>
 
-    <div class="form-group mt-2 col-md-6">
-        <a href="/settings/aVenue" class="btn btn-secondary btn-lg btn-block mt-sm-2" >Add Venue</a>  
-      
-    </div>
-</div>
-<div class="form-row">
-    <div class="form-group col-md-6">
+
+    <div class="row">
       
         
         
-        <a href="/settings/rAdmin" class="btn btn-secondary btn-lg btn-block  ">Remove Administrator</a>
-        
+        <a href="/settings/rAdmin" class="btn btn-secondary btn-lg btn-block mt-sm-2 ">Remove Administrator</a>
+        <a href="/settings/rVenue" class="btn btn-secondary btn-lg btn-block mt-sm-2"> Remove Venue</a>
         
     </div>
 
-    <div class="form-group  col-md-6">
-        <a href="/settings/rVenue" class="btn btn-secondary btn-lg btn-block "> Remove Venue</a>
-    </div>
-</div>
 
-<div class="form-row">
-    <div class="form-group col-md-6">
+
+    <div class="row">
       
         
         
-        <a href="/settings/vAdmin" class="btn btn-secondary btn-lg btn-block  ">View Administrators</a>
-        
+        <a href="/settings/vAdmin" class="btn btn-secondary btn-lg btn-block mt-sm-2 ">View Administrators (<%=admins.length%>)</a>
+        <a href="/settings/vVenue" class="btn btn-secondary btn-lg btn-block mt-sm-2 ">View Venues (<%=venues.length%>)</a>
         
     </div>
 
-    <div class="form-group  col-md-6">
-        <a href="/settings/vVenue" class="btn btn-secondary btn-lg btn-block "> View Venue</a>
-    </div>
 </div>
 
 <form action="/settings" method="POST" >
-  <button  type="submit" onclick="return confirm('Are you sure you want to remove all venues ?');" class="btn btn-primary btn-lg  btn-block  "> Remove All Venues</button>
+  <button  type="submit" onclick="return confirm('Are you sure you want to free all venues ?');" class="btn mt-2  btn-lg  btn-block  "> Free All Venues</button>
 </form>
+
+<style>
+  .container-fluid {
+      width: 100vw;
+      background-color: #2c3e50;
+      background-size: 100%;
+      background-repeat: no-repeat;
+      background-position: bottom;
+      height: 100vh;
+    }
+    .btn {
+      background-color: #fff;
+      color: #2c3e50;
+      padding: 10px;
+      font-size: 1.2rem;
+      width: 50%;
+      display: block;
+      margin: auto;
+      border-radius: 50px;
+      transition: all 500ms;
+      opacity: 1;
+    }
+  
+    .btn:hover {
+      color: #fff;
+      background-color: #2c3e50;
+      border: 1px solid #fff;
+    }
+    h1,h2 {
+color: #2c3e50;
+}
+
+.card {
+border-radius: 25px;
+}
+p {
+color: #2c3e50;
+font-weight: bold;
+}
+  
+  </style>
 
         
 

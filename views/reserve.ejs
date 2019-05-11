@@ -1,13 +1,13 @@
 
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-success">
-  <a href="/users/logout" class="btn btn-light ">Logout</a>
+<nav class="navbar navbar-expand-lg navbar-dark">
+        <a href="/users/logout" style="color:#fff"><i class="fas fa-sign-out-alt"></i>Logout</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
   <div class="collapse navbar-collapse" id="navbarColor01" >
-    <ul class="navbar-nav mr-auto>
+    <ul class="navbar-nav mr-auto">
       <li class="nav-item ">
         <a class="nav-link  ml-5" href="http://www.iium.edu.my/">IIUM </a>
       </li>
@@ -46,215 +46,307 @@
 </div>
 
 </nav>
-<div class ="mt-4 card card-body"  style="border:1px solid black">
-    <h1 class="mt-4"  style =" text-align: center"><i class="fas fa-pencil-alt"></i>  Making Reservations</h1>
-
-    <p class="lead mb-1" style =" text-align: center">Available Time Slots :</p>
-    <p class="lead mb-1" style =" text-align: center">8:30AM - 9:50AM </p>
-    <p class="lead mb-1" style =" text-align: center">10:00AM - 11:20AM </p>
-    <p class="lead mb-1" style =" text-align: center">11:30AM - 12:50PM </p>
-    <p class="lead mb-1" style =" text-align: center">2:00PM - 3:20PM </p>
-    <p class="lead mb-1" style =" text-align: center">3:30PM - 4:50PM </p>
-    <p class="lead mb-1" style =" text-align: center">8:00PM - 10:00PM </p>
-    <p class="lead mb-1" style =" text-align: center">Note: Starting time and Ending time should correspond to the time slots above </p>
-    
-</div>
-<div class="row mt-3">
-    <div class="col-md-6 m-auto">
-      <div class="card card-body">
-        <% include ./partials/messages %>
-        <form id="form" action="/dashboard/reserve" method="POST">
-          <a href ="/dashboard/reserve/fVenue" class="btn btn-success btn-block">View Available Venues</a>
-        
-            <div class="form-group mt-2">
-                <label for="venue">Venue</label>
-                <select class="custom-select" id="roomNo" name="roomNo">
-                <option value=""> Please Select a Venue</option>
-                <option value="e1-1-1"<%= typeof roomNo != 'undefined' ? roomNo : '' %>"
-                >e1-1-1</option>
-                <option value="e1-1-2"<%= typeof roomNo != 'undefined' ? roomNo : '' %>"
-                >e1-1-2</option>
-                <option value="e1-1-3"<%= typeof roomNo != 'undefined' ? roomNo : '' %>"
-                >e1-1-3</option>
-                </select>
-               
-                
-            </div>
-
-            
-        
-        <div class="form-group mt-2">
-            
-                <label for="reserveStartDate">Start date of reservation</label>
-                <input
-                    type="date"
-                    id="reserveStartDate"
-                    name="reserveStartDate"
-                    class="form-control"
-                    placeholder="dd/mm/yyyy"
-                    value="reserveStartDate"<%= typeof reserveStartDate != 'undefined' ? reserveStartDate: '' %>
-                />
-            
-            
+<div class="container-fluid">
+    <div class="row">
+        <div class ="col-md-6 card card-body "  style="border:1px solid black">
+            <h1 class="mt-4"  style =" text-align: center"><i class="fas fa-pencil-alt"></i>  Making Reservations</h1>
+            <p class="lead mb-1" style =" text-align: center">Available Time Slots :</p>
+            <p class="lead mb-1" style =" text-align: center">8:30AM - 9:50AM </p>
+            <p class="lead mb-1" style =" text-align: center">10:00AM - 11:20AM </p>
+            <p class="lead mb-1" style =" text-align: center">11:30AM - 12:50PM </p>
+            <p class="lead mb-1" style =" text-align: center">2:00PM - 3:20PM </p>
+            <p class="lead mb-1" style =" text-align: center">3:30PM - 4:50PM </p>
+            <p class="lead mb-1" style =" text-align: center">5:00PM - 6:20PM </p>
+            <p class="lead mb-1" style =" text-align: center">8:00PM - 10:00PM </p>
+            <p class="lead mb-1" style =" text-align: center">8:30AM - 10:00PM (Full Day) </p>
+            <p class="lead mb-1" style =" text-align: center"><i class="fas fa-info-circle"></i>  Note: Starting time and Ending time should correspond to the time slots above </p>
+            <p class="lead" style =" text-align: center">Students are required to attach recommendation files to organize events/meetings  </p>
+            <p class="   mt mb-1" style =" text-align: center">  <b>List View: Viewing available venues in a list</b></p>
+            <p class="    mb-1" style =" text-align: center">  <b>Graphical View : Viewing available venues in a graphical view</b></p>
         </div>
-        
-        <div class="form-row">
-          <div class="form-group mt-2 col-md-6">
-            <label for="reserveStartTime">Start time Of Reservation</label>
-            <select class="custom-select" name="reserveStartTime" id="reserveStartTime">
-                <option value="">
-                    Select Start Time
-                  </option>
-            <option
-                type="reserveStartTime"
-                id="reserveStartTime"
-                name="reserveStartTime"
-                class="form-control"
+
                 
-                
-                value="8:30AM"<%= typeof reserveStartTime != 'undefined' ? reserveStartTime: '' %>
-            >8:30AM</option>
-            <option
-                type="reserveStartTime"
-                id="reserveStartTime"
-                name="reserveStartTime"
-                class="form-control"
-                
-                value="reserveStartTime"<%= typeof reserveStartTime != 'undefined' ? reserveStartTime: '' %>
-            >10:00AM</option>
-            <option
-                type="reserveStartTime"
-                id="reserveStartTime"
-                name="reserveStartTime"
-                class="form-control"
-                
-                value="reserveStartTime"<%= typeof reserveStartTime != 'undefined' ? reserveStartTime: '' %>
-            >11:30AM</option>
-            <option
-                type="reserveStartTime"
-                id="reserveStartTime"
-                name="reserveStartTime"
-                class="form-control"
-                
-                value="reserveStartTime"<%= typeof reserveStartTime != 'undefined' ? reserveStartTime: '' %>
-            >2:00PM</option>
-            <option
-                type="reserveStartTime"
-                id="reserveStartTime"
-                name="reserveStartTime"
-                class="form-control"
-                
-                value="reserveStartTime"<%= typeof reserveStartTime != 'undefined' ? reserveStartTime: '' %>
-            >3:30PM</option>
-            <option
-                type="reserveStartTime"
-                id="reserveStartTime"
-                name="reserveStartTime"
-                class="form-control"
-                
-                value="reserveStartTime"<%= typeof reserveStartTime != 'undefined' ? reserveStartTime: '' %>
-            >5:00PM</option>
-            <option
-                type="reserveStartTime"
-                id="reserveStartTime"
-                name="reserveStartTime"
-                class="form-control"
-                
-                value="reserveStartTime"<%= typeof reserveStartTime != 'undefined' ? reserveStartTime: '' %>
-            >8:00PM</option>
-            </select>
-        </div>
-                <div class="form-group mt-2 col-md-6">
-                    <label for="reserveEndTime">End Time Of Reservation </label>
-                    <select class="custom-select" name="reserveEndTime" id="reserveEndTime">
-                    <option selected="">
-                      Select End Time
-                    </option>
-                    <option
-                        type="reserveEndTime"
-                        id="reserveEndTime"
-                        name="reserveEndTime"
-                        class="form-control"
-                        
-                        value="9:50AM"<%= typeof reserveEndTime != 'undefined' ? reserveEndTime: '' %>
-                    >9:50AM</option>
-                    <option
-                        type="reserveEndTime"
-                        id="reserveEndTime"
-                        name="reserveEndTime"
-                        class="form-control"
-                        
-                        value="reserveEndTime"<%= typeof reserveEndTime != 'undefined' ? reserveEndTime: '' %>
-                    >11:20AM</option>
-                    
-                    <option
-                        type="reserveEndTime"
-                        id="reserveEndTime"
-                        name="reserveEndTime"
-                        class="form-control"
-                        
-                        value="reserveEndTime"<%= typeof reserveEndTime != 'undefined' ? reserveEndTime: '' %>
-                    >12:50PM</option>
-                    <option
-                        type="reserveEndTime"
-                        id="reserveEndTime"
-                        name="reserveEndTime"
-                        class="form-control"
-                        
-                        value="reserveEndTime"<%= typeof reserveEndTime != 'undefined' ? reserveEndTime: '' %>
-                    >3:20PM</option>
-                    <option
-                        type="reserveEndTime"
-                        id="reserveEndTime"
-                        name="reserveEndTime"
-                        class="form-control"
-                        
-                        value="reserveEndTime"<%= typeof reserveEndTime != 'undefined' ? reserveEndTime: '' %>
-                    >6:20PM</option>
-                    <option
-                        type="reserveEndTime"
-                        id="reserveEndTime"
-                        name="reserveEndTime"
-                        class="form-control"
-                        
-                        value="reserveEndTime"<%= typeof reserveEndTime != 'undefined' ? reserveEndTime: '' %>
-                    >10:00PM</option>
-                    </select>
+        <div class="col-md-6 card card-body">
+            <div class="">
+                <div class="">
+                <% include ./partials/messages %>
+                <form id="form" action="/dashboard/reserve" method="POST" enctype="multipart/form-data">
+                <div class="form-row">
+                    <div class= "form-group col-md-6 w-100">
+                        <a href ="/dashboard/reserve/fVenue" class="btn  btn-block">List View</a>
+                    </div>
+                    <div class="form-group col-md-6 w-100">
+                            <a href ="/dashboard/reserve/fVenueG" class="btn  btn-block">Graphical View</a>
+                    </div>
                 </div>
-            </div>
-
                 <div class="form-group mt-2">
-                    <label for="purpose">Purpose Of Reservation</label>
-                    <input
-                        type="purpose"
-                        id="purpose"
-                        name="purpose"
-                        class="form-control"
-                        placeholder="Purpose"
-                        value=""<%= typeof purpose != 'undefined' ? purpose: '' %>
-                    />
+                <label for="name">Select Venue</label>
+                
+        
+                <select onfocus='this.size=5;' onblur='this.size=1;' onchange='this.size=1; this.blur();' class="custom-select" id="roomNo" name="roomNo" role ="menu"style="height: auto; max-height:200px; overflow-x:hidden;">
+        
+                    <option value="">Select Venue</option>
+                    <% for(var i = 0; i<venues.length; i++) {%>
+                    <option value="<%=venues[i]%>"
+                    ><%= venues[i]%></option>
+                    
+                    <%}%>
+                    
+                </select>
                 </div>
-
+        
+                    
+                
+                <div class="form-group mt-2">
+                    
+                        <label for="reserveStartDate">Start date of reservation</label>
+                        <input
+                            type="date"
+                            id="reserveStartDate"
+                            name="reserveStartDate"
+                            class="form-control"
+                            placeholder="dd/mm/yyyy"
+                            value="reserveStartDate"<%= typeof reserveStartDate != 'undefined' ? reserveStartDate: '' %>
+                        />
+                    
+                    
+                </div>
+                
                 <div class="form-row">
                     <div class="form-group mt-2 col-md-6">
-                        <a href="/dashboard" class="btn btn-primary btn-block ">Back to Dashboard</a>
+                    <label for="reserveStartTime">Start time Of Reservation</label>
+                    <select class="custom-select" name="reserveStartTime" id="reserveStartTime">
+                        <option value="">
+                            Select Start Time
+                            </option>
+                    <option
+                        type="reserveStartTime"
+                        id="reserveStartTime"
+                        name="reserveStartTime"
+                        class="form-control"
                         
-                       
                         
-                    </div>
-        
-                    <div class="form-group mt-2 col-md-6">
-                        <button type="submit" class="btn btn-info btn-block ">Request venue</button>
-                    </div>
+                        value="8:30AM"<%= typeof reserveStartTime != 'undefined' ? reserveStartTime: '' %>
+                    >8:30AM</option>
+                    <option
+                        type="reserveStartTime"
+                        id="reserveStartTime"
+                        name="reserveStartTime"
+                        class="form-control"
+                        
+                        value="10:00AM"<%= typeof reserveStartTime != 'undefined' ? reserveStartTime: '' %>
+                    >10:00AM</option>
+                    <option
+                        type="reserveStartTime"
+                        id="reserveStartTime"
+                        name="reserveStartTime"
+                        class="form-control"
+                        
+                        value="11:30AM"<%= typeof reserveStartTime != 'undefined' ? reserveStartTime: '' %>
+                    >11:30AM</option>
+                    <option
+                        type="reserveStartTime"
+                        id="reserveStartTime"
+                        name="reserveStartTime"
+                        class="form-control"
+                        
+                        value="2:00PM"<%= typeof reserveStartTime != 'undefined' ? reserveStartTime: '' %>
+                    >2:00PM</option>
+                    <option
+                        type="reserveStartTime"
+                        id="reserveStartTime"
+                        name="reserveStartTime"
+                        class="form-control"
+                        
+                        value="3:30PM"<%= typeof reserveStartTime != 'undefined' ? reserveStartTime: '' %>
+                    >3:30PM</option>
+                    <option
+                        type="reserveStartTime"
+                        id="reserveStartTime"
+                        name="reserveStartTime"
+                        class="form-control"
+                        
+                        value="5:00PM"<%= typeof reserveStartTime != 'undefined' ? reserveStartTime: '' %>
+                    >5:00PM</option>
+                    <option
+                        type="reserveStartTime"
+                        id="reserveStartTime"
+                        name="reserveStartTime"
+                        class="form-control"
+                        
+                        value="8:00PM"<%= typeof reserveStartTime != 'undefined' ? reserveStartTime: '' %>
+                    >8:00PM</option>
+                    </select>
                 </div>
-            
-
-        </form>
-    
+                        <div class="form-group mt-2 col-md-6">
+                            <label for="reserveEndTime">End Time Of Reservation </label>
+                            <select class="custom-select" name="reserveEndTime" id="reserveEndTime">
+                            <option selected="">
+                                Select End Time
+                            </option>
+                            <option
+                                type="reserveEndTime"
+                                id="reserveEndTime"
+                                name="reserveEndTime"
+                                class="form-control"
+                                
+                                value="9:50AM"<%= typeof reserveEndTime != 'undefined' ? reserveEndTime: '' %>
+                            >9:50AM</option>
+                            <option
+                                type="reserveEndTime"
+                                id="reserveEndTime"
+                                name="reserveEndTime"
+                                class="form-control"
+                                
+                                value="11:20AM"<%= typeof reserveEndTime != 'undefined' ? reserveEndTime: '' %>
+                            >11:20AM</option>
+                            
+                            <option
+                                type="reserveEndTime"
+                                id="reserveEndTime"
+                                name="reserveEndTime"
+                                class="form-control"
+                                
+                                value="12:50PM"<%= typeof reserveEndTime != 'undefined' ? reserveEndTime: '' %>
+                            >12:50PM</option>
+                            <option
+                                type="reserveEndTime"
+                                id="reserveEndTime"
+                                name="reserveEndTime"
+                                class="form-control"
+                                
+                                value="3:20PM"<%= typeof reserveEndTime != 'undefined' ? reserveEndTime: '' %>
+                            >3:20PM</option>
+                            <option
+                                type="reserveEndTime"
+                                id="reserveEndTime"
+                                name="reserveEndTime"
+                                class="form-control"
+                                
+                                value="4:50PM"<%= typeof reserveEndTime != 'undefined' ? reserveEndTime: '' %>
+                            >4:50PM</option>
+                            <option
+                                type="reserveEndTime"
+                                id="reserveEndTime"
+                                name="reserveEndTime"
+                                class="form-control"
+                                
+                                value="6:20PM"<%= typeof reserveEndTime != 'undefined' ? reserveEndTime: '' %>
+                            >6:20PM</option>
+                            <option
+                                type="reserveEndTime"
+                                id="reserveEndTime"
+                                name="reserveEndTime"
+                                class="form-control"
+                                
+                                value="10:00PM"<%= typeof reserveEndTime != 'undefined' ? reserveEndTime: '' %>
+                            >10:00PM</option>
+                            </select>
+                        </div>
+                    </div>
         
-      </div>
+                        <div class="form-group mt-2">
+                            <label for="purpose">Purpose Of Reservation</label>
+                            <input
+                                type="purpose"
+                                id="purpose"
+                                name="purpose"
+                                class="form-control"
+                                placeholder="Purpose"
+                                value=""<%= typeof purpose != 'undefined' ? purpose: '' %>
+                            />
+                        </div>
+                        <div class="custom-file mt-2 mb-2">
+                                <input type="file" name="file" id="file" class="custom-file-input">
+                                <label for="file" class="custom-file-label" value="">Choose File</label>
+                        </div>
+                            
+                        
+        
+                        <div class="row">
+                             <button type="submit" class="btn  btn-block mt-4 mb-2">Request venue</button>
+                            
+                        </div>
+                    
+        
+                </form>
+            
+                
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
+</div>
+
+
+
+<style>
+          /* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #000; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
+        .container-fluid {
+            width: 100vw;
+            background-color: #2c3e50;
+            background-size: 100%;
+            background-repeat: no-repeat;
+            background-position: bottom;
+            height: 100vh;
+            overflow-x:hidden;
+            
+          }
+          .btn {
+            background-color: #2c3e50;
+            color: #fff;
+            padding: 5px;
+            font-size: 1.0rem;
+            width: 50%;
+            display: block;
+            margin: auto;
+            border-radius: 50px;
+            transition: all 500ms;
+            opacity: 1;
+            border: 1px solid #2c3e50;
+          }
+        
+          .btn:hover {
+            color: #2c3e50;
+            background-color: #fff;
+            border: 1px solid #2c3e50;
+          }
+          h1,h2 {
+color: #2c3e50;
+}
+
+.card {
+border-radius: 25px;
+}
+p {
+color: #2c3e50;
+font-weight: bold;
+}
+        </style>
+
+
+
+
+
+
   <script>
       var today = new Date().toISOString().split('T')[0];
   document.getElementsByName("reserveStartDate")[0].setAttribute('min', today);

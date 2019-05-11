@@ -1,6 +1,6 @@
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-success">
-    <a href="/users/logout" class="btn btn-light ">Logout</a>
+<nav class="navbar navbar-expand-lg navbar-dark ">
+    <a href="/users/logout" style="color:#fff"><i class="fas fa-sign-out-alt"></i>Logout</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -45,17 +45,18 @@
   </div>
   
   </nav>
-  <div class ="mt-4 card card-body"  style="border:1px solid black">
+  <div class ="card card-body"  style="border:1px solid black">
       <h1 class="mt-4"  style =" text-align: center"><i class="	fas fa-clipboard-list"></i>  View Reservations History</h1>
       <p class=" mt-3 lead mb-1" style =" text-align: center">Keep Track Of Previous Reservations In KOE Venues</p>
       
   </div>
-  <table class="table table-striped">
+  <div class="scrollable">
+  <table class="table table-striped mt-4 text-center">
         <thead>
             <tr>
               
                 <th>Venue Number</th>
-                <th>Time Of Request </th>
+               
                 <th>Reserved By</th>
                 <th>Reserved On </th>
                 
@@ -63,7 +64,7 @@
                 <th>Slot End</th>
                 <th>Purpose</th>
                 <th>Status</th>
-                <th>Reject Reason</th>
+                <th>Comments</th>
             </tr>
         </thead>
         <tbody>
@@ -73,7 +74,7 @@
             <% for(var i=0; i<history.length; i++) {%>
                 <tr>
                       <td><%= history[i].venueRequested %> </td>
-                      <td><%= history[i].timeOfRequest %> </td>    
+                         
                        <td><%= history[i].requestedBy.name %> </td>  
                        <td><%= history[i].reserveStartDate %> </td>  
                        
@@ -81,12 +82,18 @@
                        <td><%= history[i].reserveEndTime %> </td> 
                        <td><%= history[i].purpose %> </td>
                        <% if ( history[i].requestStatus=="accepted") {%> 
-                       <td><i class="	fas fa-thumbs-up fa-2x"></i> </td>
+                       <td style="color:rgb(35, 248, 7)"><i class="	fas fa-check fa-2x"></i> </td>
+                       <td>Request Accepted </td> 
                        <%}%>
+                       <% if(history[i].requestStatus=="cancelled"){%>
+                        <td><i class="fas fa-user-slash	fa-2x"></i></td>
+                        <td>Request Cancelled</td> 
+                        <%}%>
                         <% if (history[i].requestStatus=="rejected") {%>
-                        <td><i class="fas fa-thumbs-down fa-2x"></i></td>
+                        <td style="color:rgb(248, 7, 7)"><i class="fa fa-remove fa-2x"></i></td>
+                        <td><%= history[i].reasonOfRejection %> </td> 
                        <%}%>
-                       <td><%= history[i].reasonOfRejection %> </td> 
+                       
                          
                 </tr>
             <% } %>
@@ -95,9 +102,84 @@
                
         </tbody>
     </table>
-    <a href="/dashboard" class="btn btn-primary btn-block lead mt-4 mb-4">Return to Dashboard</a>
-           
+    </div>
+    
+<style type="text/css">
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
 
+/* Track */
+::-webkit-scrollbar-track {
+  background: #fff; 
+  border-radius: 10px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgb(48, 46, 46); 
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
+
+body {
+  background-color: #2c3e50;
+}
+      .scrollable {
+        height: 500px;
+        overflow-y: scroll;
+        
+      }
+
+
+      .container-fluid {
+      width: 100vw;
+      background-color: #2c3e50;
+      background-size: 100%;
+      background-repeat: no-repeat;
+      background-position: bottom;
+      height: 100vh;
+      overflow-x: hidden;
+    }
+    .btn {
+      background-color: #fff;
+      color: #2c3e50;
+      padding: 8px;
+      font-size: 1.0rem;
+      width: 50%;
+      display: block;
+      margin: auto;
+      border-radius: 50px;
+      transition: all 500ms;
+      opacity: 1;
+    }
+  
+    .btn:hover {
+      color: #fff;
+      background-color: #2c3e50;
+      border: 1px solid #fff;
+    }
+    .table{
+      
+      background-color: #fff;
+    }
+    h1,h2 {
+color: #2c3e50;
+}
+
+.card {
+border-radius: 25px;
+}
+p {
+color: #2c3e50;
+font-weight: bold;
+}
+    </style>
              
             
              

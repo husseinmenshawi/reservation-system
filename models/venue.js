@@ -15,8 +15,11 @@ const VenueSchema = new mongoose.Schema({
         type: Number,
         
     },
-    projector: { 
-        type: Boolean,
+    venueType: { 
+        type: String,
+    },
+    seatingType:{
+        type: String,
     },
     slotStart: {
         type : String

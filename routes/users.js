@@ -39,8 +39,11 @@ router.post('/register', (req, res) => {
         errors.push({ msg: 'Please enter all fields' });
     }
 
-    if (matricNo.length < 7 || matricNo.length > 7) {
-        errors.push({ msg: 'Matric numbers must be 7 numbers ' });
+    if (matricNo.length < 4 || matricNo.length > 7) {
+        errors.push({ msg: 'Matric no/Staff no must be 4 to 7 numbers ' });
+    }
+    if (isNaN(matricNo)) {
+        errors.push({ msg: 'Please enter a number for Matric Number' });
     }
 
     if (password != password2) {

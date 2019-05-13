@@ -12,7 +12,8 @@ const GridFsStorage = require('multer-gridfs-storage');
 const Grid = require('gridfs-stream');
 const methodOverride = require('method-override');
 const crypto = require('crypto');
-
+"use strict";
+const nodemailer = require("nodemailer");
 const collection = "venuesches";
 const collection2 = "users";
 
@@ -214,7 +215,6 @@ app.post('/settings/aAdmin', (req, res) => {
 });
 
 //Removing Admin
-
 app.post('/settings/rAdmin', (req, res) => {
     //  receiving matricNo
     const matricNo = req.body.matricNo;
@@ -288,8 +288,9 @@ app.get('/dashboard/requests/details/:id', (req, res) => {
 });
 
 //Accept Button
-app.post('/dashboard/requests/details/:id',(req, res)=>{
+app.post('/dashboard/requests/details/:id/:email',(req, res)=>{
     const reqID = req.params.id;
+    const userEmail = req.params.email
     var query = { _id: ObjectId(reqID)};
 
     
@@ -314,6 +315,37 @@ app.post('/dashboard/requests/details/:id',(req, res)=>{
             'Request Accepted!'
             );
             res.redirect('/dashboard/requests')
+            db.getDB().collection("requests").find(query).toArray(function(err,request){
+                
+                nodemailer.createTestAccount();
+                
+                // create reusable transporter object using the default SMTP transport
+                let transporter = nodemailer.createTransport({
+                service: "Gmail",
+                auth: {
+                    user: "menshawi98@gmail.com", // generated ethereal user
+                    pass: "mino1suna2miso3" // generated ethereal password
+                }
+                });
+
+            // send mail with defined transport object
+            transporter.sendMail({
+            from: '"Hussein Menshawi" <menshawi98@gmail.com>', // sender address
+            to: userEmail,
+            subject: "Venue request Status", // Subject line
+            text: `Salam,
+Your request has been accepted! 
+
+Venue : ${request[0].venueRequested}
+Reservation Date : ${request[0].reserveStartDate}
+Reservation Time : ${request[0].reserveStartTime} to ${request[0].reserveEndTime}
+
+Regards,
+-Administrator Team, IIUM.` // plain text body
+            
+            });  
+            });
+            
             
             }
     }); // end of DB
@@ -348,8 +380,9 @@ app.get('/dashboard/requests/details/:id/reject/:id', (req, res) => {//to secure
 });
 
 //Reject Button
-app.post('/dashboard/requests/details/:id/reject/:id',(req, res)=>{
+app.post('/dashboard/requests/details/:id/reject/:id/:email',(req, res)=>{
     const reqID = req.params.id;
+    const userEmail = req.params.email;
     let errors= [];
     var query = { _id: ObjectId(reqID)};
     venueNo= req.body.venueNo;
@@ -410,6 +443,37 @@ app.post('/dashboard/requests/details/:id/reject/:id',(req, res)=>{
             'Request rejected!'
             );
             res.redirect('/dashboard/requests')
+            db.getDB().collection("requests").find(query).toArray(function(err,request){
+               
+                nodemailer.createTestAccount();
+                
+                // create reusable transporter object using the default SMTP transport
+                let transporter = nodemailer.createTransport({
+                service: "Gmail",
+                auth: {
+                    user: "menshawi98@gmail.com", // generated ethereal user
+                    pass: "mino1suna2miso3" // generated ethereal password
+                }
+                });
+
+            // send mail with defined transport object
+            transporter.sendMail({
+            from: '"Hussein Menshawi" <menshawi98@gmail.com>', // sender address
+            to: userEmail,
+            subject: "Venue request Status", // Subject line
+            text: `Salam,
+Your request has been rejected,
+
+Venue : ${request[0].venueRequested}
+Reservation Date : ${request[0].reserveStartDate}
+Reservation Time : ${request[0].reserveStartTime} to ${request[0].reserveEndTime}
+Reason of Rejection: ${request[0].reasonOfRejection}
+
+Regards,
+-Administrator Team, IIUM.` // plain text body
+            
+            });  
+            });
             
             }
     });
@@ -724,23 +788,6 @@ app.post('/dashboard/reservation/:id', (req,res)=>{
 });
 
 
-// fetching history
-app.get('/dashboard/history', (req, res) => {
-    
-    
-    db.getDB().collection("history").find({requestStatus: {$ne:"TBD"}}).toArray(function(err, result){
-        if (!err) {
-            
-            res.render("history", {
-                history: result,
-                user: req.user
-            });
-        }
-        else {
-            console.log('Error in reservations :' + err);
-        }
-    });
-});
 
 
 // removing venue from database
@@ -1510,7 +1557,75 @@ app.post('/dashboard/profile/editprofile/:id', (req, res) => {
         });
     
     });
+// Generating Report
+app.post('/dashboard/history', (req,res)=>{
+    const sortDate = req.body.sortDate;
+    const roomNo = req.body.roomNo;
+    const matricNo = req.body.matricNo;
+    if(sortDate && roomNo && matricNo){
+        var query={
+            reserveStartDate:sortDate,
+            venueRequested: roomNo,
+            "requestedBy.matricNo":matricNo
+        }
+    }
+    if(!sortDate && roomNo && matricNo){
+        var query={
+            venueRequested: roomNo,
+            "requestedBy.matricNo":matricNo
+        }
+    }
+    if(sortDate && !roomNo && matricNo){
+        var query={
+            reserveStartDate:sortDate,
+            "requestedBy.matricNo":matricNo
+        }
+    }
+    if(sortDate && roomNo && !matricNo){
+        var query={
+            reserveStartDate:sortDate,
+            venueRequested: roomNo
+            
+        }
+    }
+    if(!sortDate && !roomNo && matricNo){
+        var query={
+            "requestedBy.matricNo":matricNo
+        }
+    }
+    if(!sortDate && roomNo && !matricNo){
+        var query={
+            venueRequested: roomNo
+        }
+    }
+    if(sortDate && !roomNo && !matricNo){
+        var query={
+            reserveStartDate:sortDate
+        }
+    }
+    
 
+    db.getDB().collection("history").find(query).toArray(function(err, result){
+        
+        if(!err){
+            db.getDB().collection(collection).distinct("roomNo", function(err, result2){
+                db.getDB().collection("users").find({}).toArray(function(err, result3){
+            
+                res.render("history", {
+                    result:result,
+                    venues:result2,
+                    users:result3,
+                    user: req.user
+                });
+            });
+        });
+    }
+        else{
+            console.log(err)
+        }
+    });
+
+});
 
 // Routes
 app.use('/', require('./routes/index.js'));

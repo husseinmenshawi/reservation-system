@@ -187,6 +187,29 @@ router.get('/settings', ensureAuthenticated, (req, res) => //to secure this page
         }
     });
 });
+// fetching history
+router.get('/dashboard/history', ensureAuthenticated,(req, res) => {
+    db.getDB().collection("history").find({requestStatus:{$ne:"TBD"}}).toArray(function(err,result){
+        if(!err){
+            db.getDB().collection(collection).distinct("roomNo", function(err, result2){
+                db.getDB().collection("users").find({}).toArray(function(err, result3){
+            
+                res.render("history", {
+                    result:result,
+                    venues:result2,
+                    users:result3,
+                    user: req.user
+                });
+            });
+        });
+    }
+        else{
+            console.log(err)
+        }
+    });
+    
+});
+
 //Adding Admin Page 
 router.get('/settings/aAdmin', ensureAuthenticated,(req, res) => { 
     db.getDB().collection("users").find({role:"user"}).toArray(function(err, result){

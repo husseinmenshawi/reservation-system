@@ -132,7 +132,7 @@
          
           const button = document.getElementById('accept');         
                        button.addEventListener('click',function(e){
-                           fetch(`/dashboard/requests/details/<%= requestID[0] %>`,{
+                           fetch(`/dashboard/requests/details/<%= requestID[0] %>/<%=requested[0].requestedBy.email%>`,{
                                method: "post",
                                headers : {
                                "Content-Type" : "application/json; charset=utf-8"

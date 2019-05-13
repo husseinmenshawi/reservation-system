@@ -62,7 +62,7 @@
                  
                   
                   
-                  <form method="POST" action="/dashboard/requests/details/<%= requested[0]._id %>/reject/<%=requested[0]._id%>">
+                  <form method="POST" action="/dashboard/requests/details/<%= requested[0]._id %>/reject/<%=requested[0]._id%>/<%=requested[0].requestedBy.email%>">
                     <label for="reasonOfRejection">Reason </label>
                     <input
                         type="reasonOfRejection"
